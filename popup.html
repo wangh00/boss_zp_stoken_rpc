@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { width: 400px; padding: 20px; font-family: Arial; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        button { width: 100%; padding: 10px; margin: 5px 0; border: none; border-radius: 4px; cursor: pointer; }
+        #saveBtn { background: #007cba; color: white; }
+        #testRpcBtn { background: #28a745; color: white; }
+        .status { margin-top: 10px; padding: 8px; border-radius: 4px; text-align: center; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        .config-display { background: #f8f9fa; padding: 10px; border-radius: 4px; margin: 10px 0; }
+		.code-section {
+            background: #2d2d2d;
+            color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.4;
+            overflow: auto;
+            max-height: 300px;
+        }
+		.code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #555;
+        }
+        .code-title {
+            font-weight: bold;
+            color: #ffd700;
+        }
+		.header-section {
+			display: flex;
+			align-items: center;
+			justify-content: space-between; /* 改为两端对齐 */
+			gap: 12px;
+			margin-bottom: 10px;
+			padding-bottom: 15px;
+			border-bottom: 2px solid #007cba;
+		}
+
+		.header-text {
+			flex: 1; /* 占据剩余空间 */
+		}
+
+		.header-right {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			gap: 4px;
+		}
+
+		.version {
+			font-size: 11px;
+			color: #666;
+			font-weight: bold;
+		}
+
+		.status-badge {
+			font-size: 10px;
+			color: #28a745;
+			background: #d4edda;
+			padding: 2px 6px;
+			border-radius: 10px;
+			border: 1px solid #c3e6cb;
+		}
+        .header-subtitle {
+		  font-size: 18px;  /* 从默认的16px增大到18px */
+		}
+    </style>
+</head>
+<body>
+	<div class="header-section">
+		<img src="icons/icon128.png" alt="Boss扩展图标" class="header-icon">
+		<div class="header-text">
+			<h3 class="header-title">BOSS zp_stoken RPC 工具</h3>
+			<p class="header-subtitle">祁厅长,您看我这警犬的位置...</p>
+			<div class="header-right">
+			<span class="version">v1.0</span>
+			<span class="status-badge">已就绪</span>
+		</div>
+		</div>
+		<!-- 在右边添加文字 -->
+		
+	</div>
+	
+    <div class="input-group">
+        <label>RPC地址:</label>
+        <input type="text" id="rpcUrl" placeholder="WebSocket地址格式--> ws://127.0.0.1:12080/ws?group=boss">
+    </div>
+    
+    <div class="input-group">
+        <label>目标页面:</label>
+        <input type="text" id="targetUrl" placeholder="留空则匹配Boss主页">
+    </div>
+    
+    <button id="saveBtn">保存配置</button>
+    <button id="testRpcBtn">测试RPC连接</button>
+    <div id="status" class="status"></div>
+    <div class="config-display">
+        <strong>当前配置:</strong><br>
+        RPC: <span id="currentRpc">未设置</span><br>
+        目标页面: <span id="currentTarget">https://www.zhipin.com/</span>
+    </div>
+	<!-- Python 代码展示区域 -->
+        <div class="code-section">
+            <div class="code-header">
+                <span class="code-title">Python 请求示例</span>
+            </div>
+            <pre><code>import requests
+import json
+
+# WebSocket 服务地址（与上方配置一致）
+ws_service_url = "<span id="pythonWsUrl">ws://127.0.0.1:12080/ws?group=boss</span>"
+
+# 对应的 HTTP 接口地址
+http_service_url = "http://127.0.0.1:12080/go"
+data = {
+	"group": "boss",
+	"action": "data_encode",
+	"param": json.dumps({
+		"seed": seed,
+		"ts": timestamp
+	})
+}
+response = requests.post(http_service_url, data=data)
+</code></pre>
+        </div>
+	
+	
+	
+	
+    
+
+    <script src="popup.js"></script>
+</body>
+</html>

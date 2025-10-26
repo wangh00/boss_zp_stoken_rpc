@@ -1,0 +1,47 @@
+{
+    "manifest_version": 3,
+    "name": "boss_zp_stoken_rpc",
+    "version": "1.0",
+	"permissions": [
+		"activeTab",
+		"scripting"
+	],
+	"icons": {
+		"16": "icons/icon16.png",
+		"32": "icons/icon32.png",
+		"48": "icons/icon48.png",
+		"128": "icons/icon128.png",
+		"192": "icons/icon192.png"
+    },
+	"action": {
+        "default_popup": "popup.html",
+        "default_title": "配置扩展参数",
+		"default_icon": {
+            "16": "icons/icon16.png",
+            "32": "icons/icon32.png",
+            "48": "icons/icon48.png",
+            "128": "icons/icon128.png",
+            "192": "icons/icon192.png"
+        }
+    },
+	"host_permissions": [
+        "https://*.zhipin.com/*",
+        "http://*.zhipin.com/*"
+    ],
+    "content_scripts": [
+		{
+			"matches": [
+					"https://www.zhipin.com/*",
+					"https://*.zhipin.com/*"
+			],
+			"js": [
+				"content-scripts/JsEnv_Dev_replace.js",
+				"content-scripts/dailyRefresh.js",
+				"content-scripts/content.js"
+			],
+			"run_at": "document_start",
+			"all_frames": false,
+			"world": "MAIN"
+		}
+	]
+}
