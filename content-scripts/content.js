@@ -5,7 +5,7 @@
 	
     if (window.bossExtensionLoaded) return;
     window.bossExtensionLoaded = true;
-    
+    window.error_count=0;
     console.log('🚀 Boss扩展正在加载');
 	
     let config = { rpcUrl: null, targetUrl: 'https://www.zhipin.com/' };
@@ -82,15 +82,25 @@
 			console.log('✅ 脚本加载完成:', url);
 		};
 		var demo = new RPCclient(rpc_url);
+		
 		demo.regAction("data_encode", function (resolve,param) {
 			//这样添加了一个param参数，http接口带上它，这里就能获得
 
 			const __zp_sseed__=param.seed;
 			const __zp_sts__=param.ts;
-			const result=new window.ABC().z(__zp_sseed__, __zp_sts__);
-			console.log(param,'===>',result)
-
-			resolve({"zp_token":result,"user-agent":navigator.userAgent});
+			try{
+				const res=new window.ABC().z(__zp_sseed__, __zp_sts__);
+				console.log(param,'===>',res)
+				resolve({"zp_token":res,"user-agent":navigator.userAgent});
+			}catch(e){
+				console.log(e)
+				window.error_count++
+				if (window.error_count>=20){
+					console.log('ABC未正确加载,刷新...')
+					window.forceRefresh()
+				}
+				resolve({})
+			}
 		})
 	}
 })();
